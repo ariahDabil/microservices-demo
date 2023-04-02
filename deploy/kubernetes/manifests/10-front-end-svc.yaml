@@ -9,10 +9,10 @@ metadata:
     name: front-end
   namespace: sock-shop
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
-    - name: http
-      port: 80
-      targetPort: 8079
+  - port: 80
+    targetPort: 8079
+    nodePort: 30001
   selector:
     name: front-end
