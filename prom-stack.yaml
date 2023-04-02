@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: 'https://github.com/prometheus-operator/kube-prometheus.git'
+    repoURL: 'hhttps://github.com/ariahDabil/kube-prometheus.git'
     path: manifests/
     targetRevision: HEAD
     directory:
