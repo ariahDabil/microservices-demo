@@ -9,45 +9,20 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: 'https://github.com/prometheus-community/helm-charts'
-    path: charts/kube-prometheus-stack
+    repoURL: 'https://github.com/prometheus-operator/kube-prometheus.git'
+    path: manifests/
     targetRevision: HEAD
-    helm:
-      releaseName: prometheus-community
-      values: |
-        alertmanager:
-          ingress:
-            enabled: true
-            annotations:
-              kubernetes.io/ingress.class: nginx
-            hosts:
-              - alertmanager.example.com
-          service:
-            type: ClusterIP
-          routePrefix: /alertmanager
-        grafana:
-          adminPassword: "admin"
-          ingress:
-            enabled: true
-            annotations:
-              kubernetes.io/ingress.class: nginx
-            hosts:
-              - grafana.example.com
-          service:
-            type: ClusterIP
-          routePrefix: /grafana
-        prometheus:
-          alertmanagerURL: http://alertmanager:9093
-          ingress:
-            enabled: true
-            annotations:
-              kubernetes.io/ingress.class: nginx
-            hosts:
-              - prometheus.example.com
-          service:
-            type: ClusterIP
-          routePrefix: /prometheus
+    directory:
+      recurse: true
+      jsonnet: {}
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: monitoring
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - Replace=true
