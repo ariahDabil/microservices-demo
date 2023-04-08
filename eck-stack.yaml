@@ -10,9 +10,26 @@ spec:
   project: default
   source:
     repoURL: https://helm.elastic.co
-    chart: elastic/eck-operator
-    targetRevision: 2.6.0
+    chart: eck-stack
+    targetRevision: 0.4.0
     helm:
+      values: |
+        eck-elasticsearch:
+          enabled: true
+          annotations:
+            eck.k8s.elastic.co/license: basic
+        eck-kibana:
+          enabled: true
+          annotations:
+            eck.k8s.elastic.co/license: basic
+        eck-agent:
+          enabled: true
+          annotations:
+            eck.k8s.elastic.co/license: basic
+        eck-fleet-server:
+          annotations:
+            eck.k8s.elastic.co/license: basic
+          enabled: true
       releaseName: elastic-operator
   syncPolicy:
     automated:
