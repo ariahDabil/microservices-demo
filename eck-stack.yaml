@@ -5,13 +5,18 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: default
+    namespace: eck-stack
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://github.com/elastic/cloud-on-k8s.git
-    targetRevision: main
-    path: deploy/eck-stack
+    repoURL: https://helm.elastic.co
+    chart: elastic/eck-operator
+    targetRevision: 2.6.0
     helm:
-      values: "values.yaml"
-      releaseName: eck-stack
+      releaseName: elastic-operator
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
