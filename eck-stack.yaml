@@ -18,6 +18,19 @@ spec:
           enabled: true
           annotations:
             eck.k8s.elastic.co/license: basic
+          nodeSets:
+          - podTemplate:
+              spec:
+                containers:
+                - name: elasticsearch
+                  resources:
+                    limits:
+                      cpu: 500m
+                      memory: 1Gi
+            config:	
+              node.store.allow_mmap: false	
+            count: 1	
+            name: default
         eck-kibana:
           enabled: true
           annotations:
